@@ -21,9 +21,9 @@ mv /var/www/html/index.html /var/www/html/index.old
 
 # Get github PAT from AWS SM
 echo "----------Accessing AWS Secrets Manager----------"
-SECRET_NAME=”githubpat”
-GITHUB_PAT=$(sudo aws secretsmanager get-secret-value --secret-id $SECRET_NAME --region us-west-1 --query 'SecretString' --output text)
+GITHUB_PAT=$(sudo aws secretsmanager get-secret-value --secret-id 'githubpat' --region us-west-1 --query 'SecretString' --output text)
+echo $GITHUB_PAT
 
 #Get the file from Github
 echo "----------Downloading file form GitHub----------"
-curl -L -H "Authorization: Bearer $GITHUB_PAT " -H "Accept: application/vnd.github.v3.raw" -o /var/www/html/index.html "https://api.github.com/repos/learningamazon47-design/web/contents/index.html?ref=dev"
+curl -L -H "Authorization: Bearer $GITHUB_PAT" -H "Accept: application/vnd.github.v3.raw" -o /var/www/html/index.html "https://api.github.com/repos/learningamazon47-design/web/contents/index.html?ref=dev"
